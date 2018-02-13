@@ -1,8 +1,6 @@
 package org.csource.fastdfs;
 
 import org.csource.common.NameValuePair;
-import org.csource.fastdfs.*;
-
 import java.net.InetSocketAddress;
 
 public class Test1 {

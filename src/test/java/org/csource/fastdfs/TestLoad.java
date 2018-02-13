@@ -8,8 +8,6 @@
 
 package org.csource.fastdfs;
 
-import org.csource.fastdfs.*;
-
 /**
  * load test class
  *
@@ -17,7 +15,7 @@ import org.csource.fastdfs.*;
  * @version Version 1.11
  */
 public class TestLoad {
-  public static java.util.concurrent.ConcurrentLinkedQueue file_ids;
+  public static java.util.concurrent.ConcurrentLinkedQueue<String> file_ids;
   public static int total_download_count = 0;
   public static int success_download_count = 0;
   public static int fail_download_count = 0;
@@ -47,7 +45,7 @@ public class TestLoad {
       System.out.println("network_timeout=" + ClientGlobal.g_network_timeout + "ms");
       System.out.println("charset=" + ClientGlobal.g_charset);
 
-      file_ids = new java.util.concurrent.ConcurrentLinkedQueue();
+      file_ids = new java.util.concurrent.ConcurrentLinkedQueue<String>();
 
       for (int i = 0; i < 10; i++) {
         (new UploadThread(i)).start();
@@ -220,11 +218,11 @@ public class TestLoad {
             continue;
           }
 
-          synchronized (this.counter_lock) {
+          synchronized (DownloadThread.counter_lock) {
             TestLoad.total_download_count++;
           }
           if (downloader.downloadFile(file_id) == 0) {
-            synchronized (this.counter_lock) {
+            synchronized (DownloadThread.counter_lock) {
               TestLoad.success_download_count++;
             }
           } else {
@@ -239,11 +237,11 @@ public class TestLoad {
             continue;
           }
 
-          synchronized (this.counter_lock) {
+          synchronized (DownloadThread.counter_lock) {
             TestLoad.total_download_count++;
           }
           if (downloader.downloadFile(file_id) == 0) {
-            synchronized (this.counter_lock) {
+            synchronized (DownloadThread.counter_lock) {
               TestLoad.success_download_count++;
             }
           } else {

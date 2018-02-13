@@ -8,8 +8,6 @@
 
 package org.csource.fastdfs;
 
-import org.csource.fastdfs.*;
-
 import java.text.SimpleDateFormat;
 
 /**

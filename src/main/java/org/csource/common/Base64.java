@@ -102,7 +102,6 @@ public class Base64 {
    */
   public static void show(byte[] b) {
     int count = 0;
-    int rows = 0;
 
 
     for (int i = 0; i < b.length; i++) {

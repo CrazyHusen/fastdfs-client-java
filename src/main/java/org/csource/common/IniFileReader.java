@@ -19,7 +19,7 @@ import java.util.Hashtable;
  * @version Version 1.0
  */
 public class IniFileReader {
-  private Hashtable paramTable;
+  private Hashtable<String, Serializable> paramTable;
   private String conf_filename;
 
   /**
@@ -83,7 +83,7 @@ public class IniFileReader {
       return (String) obj;
     }
 
-    return (String) ((ArrayList) obj).get(0);
+    return (String) ((ArrayList<?>) obj).get(0);
   }
 
   /**
@@ -140,7 +140,7 @@ public class IniFileReader {
       return values;
     }
 
-    Object[] objs = ((ArrayList) obj).toArray();
+    Object[] objs = ((ArrayList<?>) obj).toArray();
     values = new String[objs.length];
     System.arraycopy(objs, 0, values, 0, objs.length);
     return values;
@@ -162,15 +162,16 @@ public class IniFileReader {
     }
   }
 
-  private void readToParamTable(InputStream in) throws IOException {
-    this.paramTable = new Hashtable();
+  @SuppressWarnings("unchecked")
+private void readToParamTable(InputStream in) throws IOException {
+    this.paramTable = new Hashtable<String, Serializable>();
     if (in == null) return;
     String line;
     String[] parts;
     String name;
     String value;
     Object obj;
-    ArrayList valueList;
+    ArrayList<Object> valueList;
     InputStreamReader inReader = null;
     BufferedReader bufferedReader = null;
     try {
@@ -191,12 +192,12 @@ public class IniFileReader {
         if (obj == null) {
           this.paramTable.put(name, value);
         } else if (obj instanceof String) {
-          valueList = new ArrayList();
+          valueList = new ArrayList<Object>();
           valueList.add(obj);
           valueList.add(value);
           this.paramTable.put(name, valueList);
         } else {
-          valueList = (ArrayList) obj;
+          valueList = (ArrayList<Object>) obj;
           valueList.add(value);
         }
       }

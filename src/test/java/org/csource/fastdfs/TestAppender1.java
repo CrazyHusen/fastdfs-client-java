@@ -9,8 +9,6 @@
 package org.csource.fastdfs;
 
 import org.csource.common.NameValuePair;
-import org.csource.fastdfs.*;
-
 import java.io.File;
 import java.net.InetSocketAddress;
 
